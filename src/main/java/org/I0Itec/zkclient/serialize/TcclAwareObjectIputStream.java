@@ -35,7 +35,7 @@ public class TcclAwareObjectIputStream extends ObjectInputStream {
 	 * description.
 	 * Uses the current class {@link ClassLoader} and falls back to the {@link Thread} context {@link ClassLoader}.
 	 */
-	protected Class resolveClass(ObjectStreamClass classDesc) throws IOException, ClassNotFoundException {
+	protected Class<?> resolveClass(ObjectStreamClass classDesc) throws IOException, ClassNotFoundException {
 		try {
 			return getClass().getClassLoader().loadClass(classDesc.getName());
 		} catch (ClassNotFoundException ex) {
@@ -57,9 +57,9 @@ public class TcclAwareObjectIputStream extends ObjectInputStream {
 	 *
 	 * For each interface uses the current class {@link ClassLoader} and falls back to the {@link Thread} context {@link ClassLoader}.
 	 */
-	protected Class resolveProxyClass(String[] interfaces) throws IOException, ClassNotFoundException {
+	protected Class<?> resolveProxyClass(String[] interfaces) throws IOException, ClassNotFoundException {
 		ClassLoader cl = getClass().getClassLoader();
-		Class[] cinterfaces = new Class[interfaces.length];
+		Class<?>[] cinterfaces = new Class[interfaces.length];
 
 		for (int i = 0; i < interfaces.length; i++) {
 			try {
